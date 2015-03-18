@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2D9DBBED-442F-4CDA-97AA-B4285E62C4CB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GameJoltAPI</RootNamespace>
+    <AssemblyName>GameJoltAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClientData.cs" />
+    <Compile Include="GameClient.cs" />
+    <Compile Include="JsonObjects\DataKey.cs" />
+    <Compile Include="JsonObjects\DataKeysResponse.cs" />
+    <Compile Include="JsonObjects\DataKeysResult.cs" />
+    <Compile Include="JsonObjects\DataResponse.cs" />
+    <Compile Include="JsonObjects\DataResult.cs" />
+    <Compile Include="JsonObjects\ScoreJson.cs" />
+    <Compile Include="JsonObjects\ScoreResponse.cs" />
+    <Compile Include="JsonObjects\ScoreResult.cs" />
+    <Compile Include="JsonObjects\ScoreTableJson.cs" />
+    <Compile Include="JsonObjects\ScoreTableResponse.cs" />
+    <Compile Include="JsonObjects\ScoreTableResult.cs" />
+    <Compile Include="JsonObjects\SuccessResponse.cs" />
+    <Compile Include="JsonObjects\SuccessResult.cs" />
+    <Compile Include="JsonObjects\TrophyJson.cs" />
+    <Compile Include="JsonObjects\TrophyResponse.cs" />
+    <Compile Include="JsonObjects\TrophyResult.cs" />
+    <Compile Include="JsonObjects\UserJson.cs" />
+    <Compile Include="JsonObjects\UserResponse.cs" />
+    <Compile Include="JsonObjects\UserResult.cs" />
+    <Compile Include="Networking.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScoreEntry.cs" />
+    <Compile Include="ScoreTable.cs" />
+    <Compile Include="Trophy.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserData.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Newtonsoft.Json.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
