@@ -76,56 +76,56 @@ namespace GameJoltAPI
         /// </summary>
         internal static class URLContainer
         {
-            internal static readonly string
-                // User URLs
-                                  FetchUser = @"http://gamejolt.com/api/game/v1/users/?" + FormatJson,
-                                  AuthUser = @"http://gamejolt.com/api/game/v1/users/auth/?" + FormatJson,
+            internal static readonly string 
+                                            // User URLs
+                                            FetchUser = @"http://gamejolt.com/api/game/v1/users/?" + FormatJson,
+                                            AuthUser = @"http://gamejolt.com/api/game/v1/users/auth/?" + FormatJson,
 
-                                  // Session URLs
-                                  OpenSession = @"http://gamejolt.com/api/game/v1/sessions/open/?" + FormatJson,
-                                  PingSession = @"http://gamejolt.com/api/game/v1/sessions/ping/?" + FormatJson,
-                                  CloseSession = @"http://gamejolt.com/api/game/v1/sessions/close/?" + FormatJson,
+                                            // Session URLs
+                                            OpenSession = @"http://gamejolt.com/api/game/v1/sessions/open/?" + FormatJson,
+                                            PingSession = @"http://gamejolt.com/api/game/v1/sessions/ping/?" + FormatJson,
+                                            CloseSession = @"http://gamejolt.com/api/game/v1/sessions/close/?" + FormatJson,
 
-                                  // Trophy URLs
-                                  FetchTrophy = @"http://gamejolt.com/api/game/v1/trophies/?" + FormatJson,
-                                  AchieveTrophy = @"http://gamejolt.com/api/game/v1/sessions/ping/?" + FormatJson,
+                                            // Trophy URLs
+                                            FetchTrophy = @"http://gamejolt.com/api/game/v1/trophies/?" + FormatJson,
+                                            AchieveTrophy = @"http://gamejolt.com/api/game/v1/sessions/ping/?" + FormatJson,
+                                
+                                            // Score URLs
+                                            FetchScore = @"http://gamejolt.com/api/game/v1/scores/?" + FormatJson,
+                                            AddScore = @"http://gamejolt.com/api/game/v1/scores/add/?" + FormatJson,
+                                            FetchScoreTable = @"http://gamejolt.com/api/game/v1/scores/tables/?" + FormatJson,
 
-                                  // Score URLs
-                                  FetchScore = @"http://gamejolt.com/api/game/v1/scores/?" + FormatJson,
-                                  AddScore = @"http://gamejolt.com/api/game/v1/scores/add/?" + FormatJson,
-                                  FetchScoreTable = @"http://gamejolt.com/api/game/v1/scores/tables/?" + FormatJson,
+                                            // Data-Store URLs
+                                            FetchData = @"http://gamejolt.com/api/game/v1/data-store/?" + FormatDump,
+                                            SetData = @"http://gamejolt.com/api/game/v1/data-store/set/?" + FormatJson,
+                                            UpdateData = @"http://gamejolt.com/api/game/v1/data-store/update/?" + FormatDump,
+                                            RemoveData = @"http://gamejolt.com/api/game/v1/data-store/remove/?" + FormatJson,
+                                            GetKeysData = @"http://gamejolt.com/api/game/v1/data-store/get-keys/?" + FormatJson,
 
-                                  // Data-Store URLs
-                                  FetchData = @"http://gamejolt.com/api/game/v1/data-store/?" + FormatDump,
-                                  SetData = @"http://gamejolt.com/api/game/v1/data-store/set/?" + FormatJson,
-                                  UpdateData = @"http://gamejolt.com/api/game/v1/data-store/update/?" + FormatDump,
-                                  RemoveData = @"http://gamejolt.com/api/game/v1/data-store/remove/?" + FormatJson,
-                                  GetKeysData = @"http://gamejolt.com/api/game/v1/data-store/get-keys/?" + FormatJson,
-
-                                  // Parameters
-                                  GameID = @"&game_id=",
-                                  UserID = @"&user_id=",
-                                  Username = @"&username=",
-                                  UserToken = @"&user_token=",
-                                  Key = @"&key=",
-                                  Operation = @"&operation=",
-                                  Value = @"&value=",
-                                  Data = @"&data=",
-                                  Score = @"&score=",
-                                  Sort = @"&sort=",
-                                  Guest = @"&guest=",
-                                  Signature = @"&signature=",
-                                  ExtraData = @"&extra_data=",
-                                  Limit = @"&limit=",
-                                  TableID = @"&table_id=",
-                                  TrophyID = @"&trophy_id=",
-                                  Achieved = @"&achieved=",
-                                  Status = @"&status=",
-                                  Format = @"&format=",
-                                  FormatDump = @"&format=dump",
-                                  FormatJson = @"&format=json",
-                                  FormatKeypair = @"&format=keypair",
-                                  FormatXml = @"&format=xml";
+                                            // Parameters
+                                            GameID = @"&game_id=",
+                                            UserID = @"&user_id=",
+                                            Username = @"&username=",
+                                            UserToken = @"&user_token=",
+                                            Key = @"&key=",
+                                            Operation = @"&operation=",
+                                            Value = @"&value=",
+                                            Data = @"&data=",
+                                            Score = @"&score=",
+                                            Sort = @"&sort=",
+                                            Guest = @"&guest=",
+                                            Signature = @"&signature=",
+                                            ExtraData = @"&extra_data=",
+                                            Limit = @"&limit=",
+                                            TableID = @"&table_id=",
+                                            TrophyID = @"&trophy_id=",
+                                            Achieved = @"&achieved=",
+                                            Status = @"&status=",
+                                            Format = @"&format=",
+                                            FormatDump = @"&format=dump",
+                                            FormatJson = @"&format=json",
+                                            FormatKeypair = @"&format=keypair",
+                                            FormatXml = @"&format=xml";
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace GameJoltAPI
         public static string Signiture(string url, string key)
         {
             MD5 m = MD5.Create();
-            byte[] data = m.ComputeHash(Encoding.UTF8.GetBytes(url + key)); //Slap a gamekey on their and encode hash
+            byte[] data = m.ComputeHash(Encoding.UTF8.GetBytes(url + key)); // Slap a gamekey on their and encode hash
 
             StringBuilder sbuild = new StringBuilder();
 
@@ -313,6 +313,18 @@ namespace GameJoltAPI
             GetRequest(URLContainer.FetchUser + URLContainer.Username + username, gid, key,
                 (r) => { FetchUserComplete(r, onComplete, new object[] { username }); });
         }
+        /// <summary>
+        /// Fetches a user by their username (not to confuse with display-name)
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method to call when the requested data has been recieved</param>
+        /// <param name="username">The user's username</param>
+        public static void FetchUser(ClientData clientData, EventHandler<DataArgs> onComplete, string username)
+        {
+            // Fetch
+            GetRequest(URLContainer.FetchUser + URLContainer.Username + username, clientData.GameID, clientData.GameKey,
+                (r) => { FetchUserComplete(r, onComplete, new object[] { username }); });
+        }
 
         /// <summary>
         /// Fetches a users by their usernames (NOT SURE IF THIS IS EVEN SUPPORTED [TODO])
@@ -342,6 +354,33 @@ namespace GameJoltAPI
                 (r) =>
                 { FetchUsersComplete(r, onComplete, username); }); // Not sure if I should copy or just pass "username" because of _params_
         }
+        /// <summary>
+        /// Fetches a users by their usernames (NOT SURE IF THIS IS EVEN SUPPORTED [TODO])
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method that will "run" when the request is complete</param>
+        /// <param name="username">The user's username</param>
+        public static void FetchUsers(ClientData clientData, EventHandler<DataArgs> onComplete, params string[] username)
+        {
+            // URL with parameter
+            StringBuilder url = new StringBuilder(URLContainer.FetchUser + URLContainer.Username);
+
+            // Adds all the usernames to the url
+            int length = username.Length;
+            for (int i = 0; i < length; i++)
+            {
+                url.Append(username[i]);
+                url.Append(',');
+            }
+
+            // Removes the last ',' (Because it's not supposed to be there)
+            url.Remove(url.Length - 1, 1);
+
+            // Fetch
+            GetRequest(url.ToString(), clientData.GameID, clientData.GameKey,
+                (r) =>
+                { FetchUsersComplete(r, onComplete, username); }); // Not sure if I should copy or just pass "username" because of _params_
+        }
 
         /// <summary>
         /// Fetches a user by their user id
@@ -354,6 +393,18 @@ namespace GameJoltAPI
         {
             // Fetch
             GetRequest(URLContainer.FetchUser + URLContainer.UserID + userID, gid, key,
+                (r) => { FetchUserComplete(r, onComplete, new object[] { userID }); });
+        }
+        /// <summary>
+        /// Fetches a user by their user id
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method that will "run" when the request is complete</param>
+        /// <param name="userID">The ID of the user</param>
+        public static void FetchUserByID(ClientData clientData, EventHandler<DataArgs> onComplete, string userID)
+        {
+            // Fetch
+            GetRequest(URLContainer.FetchUser + URLContainer.UserID + userID, clientData.GameID, clientData.GameKey,
                 (r) => { FetchUserComplete(r, onComplete, new object[] { userID }); });
         }
 
@@ -384,6 +435,32 @@ namespace GameJoltAPI
             GetRequest(url.ToString(), gid, key,
                 (r) => { FetchUsersComplete(r, onComplete, userID); });
         }
+        /// <summary>
+        /// Fetches a users by their user ids
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method that will "run" when the request is complete</param>
+        /// <param name="userID">The ID of the user</param>
+        public static void FetchUsersByID(ClientData clientData, EventHandler<DataArgs> onComplete, params string[] userID)
+        {
+            // URL with parameter
+            StringBuilder url = new StringBuilder(URLContainer.FetchUser + URLContainer.UserID);
+
+            // Adds all the user id's to the url
+            int length = userID.Length;
+            for (int i = 0; i < length; i++)
+            {
+                url.Append(userID[i]);
+                url.Append(',');
+            }
+
+            // Removes the last ',' (Because it's not supposed to be there)
+            url.Remove(url.Length - 1, 1);
+
+            // Fetch
+            GetRequest(url.ToString(), clientData.GameID, clientData.GameKey,
+                (r) => { FetchUsersComplete(r, onComplete, userID); });
+        }
 
         /// <summary>
         /// Authenticate a user by their username and token
@@ -397,6 +474,19 @@ namespace GameJoltAPI
         {
             // Authenticate
             GetRequest(URLContainer.AuthUser + URLContainer.Username + username + URLContainer.UserToken + token, gid, key,
+                (r) => { SuccessComplete(r, onComplete, new object[] { username, token }); });
+        }
+        /// <summary>
+        /// Authenticate a user by their username and token
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method that will "run" when the request is complete</param>
+        /// <param name="username">The user's username</param>
+        /// <param name="token">The user's token</param>
+        public static void AuthenticateUser(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token)
+        {
+            // Authenticate
+            GetRequest(URLContainer.AuthUser + URLContainer.Username + username + URLContainer.UserToken + token, clientData.GameID, clientData.GameKey,
                 (r) => { SuccessComplete(r, onComplete, new object[] { username, token }); });
         }
 
@@ -419,6 +509,19 @@ namespace GameJoltAPI
             GetRequest(URLContainer.OpenSession + URLContainer.Username + username + URLContainer.UserToken + token, gid, key,
                 (r) => { SuccessComplete(r, onComplete, new object[] { username, token }); });
         }
+        /// <summary>
+        /// Opens a user specific session
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method that will "run" when the request is complete</param>
+        /// <param name="username">The user's username</param>
+        /// <param name="token">The user's token</param>
+        public static void OpenSession(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token)
+        {
+            // Open Session
+            GetRequest(URLContainer.OpenSession + URLContainer.Username + username + URLContainer.UserToken + token, clientData.GameID, clientData.GameKey,
+                (r) => { SuccessComplete(r, onComplete, new object[] { username, token }); });
+        }
 
         /// <summary>
         /// Pings a open session
@@ -432,6 +535,19 @@ namespace GameJoltAPI
         {
             // Ping Session
             GetRequest(URLContainer.PingSession + URLContainer.Username + username + URLContainer.UserToken + token, gid, key,
+                (r) => { SuccessComplete(r, onComplete, new object[] { username, token }); });
+        }
+        /// <summary>
+        /// Pings a open session
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method that will "run" when the request is complete</param>
+        /// <param name="username">The user's username</param>
+        /// <param name="token">The user's token</param>
+        public static void PingSession(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token)
+        {
+            // Ping Session
+            GetRequest(URLContainer.PingSession + URLContainer.Username + username + URLContainer.UserToken + token, clientData.GameID, clientData.GameKey,
                 (r) => { SuccessComplete(r, onComplete, new object[] { username, token }); });
         }
 
@@ -450,6 +566,20 @@ namespace GameJoltAPI
             GetRequest(URLContainer.PingSession + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Status + status, gid, key,
                 (r) => { SuccessComplete(r, onComplete, new object[] { username, token }); });
         }
+        /// <summary>
+        /// Pings a open session and updates the status
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method that will "run" when the request is complete</param>
+        /// <param name="username">The user's username</param>
+        /// <param name="token">The user's token</param>
+        /// <param name="status">The user's status, either "active" or "idle"</param>
+        public static void PingSession(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, string status)
+        {
+            // Ping Session and update the status
+            GetRequest(URLContainer.PingSession + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Status + status, clientData.GameID, clientData.GameKey,
+                (r) => { SuccessComplete(r, onComplete, new object[] { username, token }); });
+        }
 
         /// <summary>
         /// Closes a open session
@@ -465,11 +595,25 @@ namespace GameJoltAPI
             GetRequest(URLContainer.CloseSession + URLContainer.Username + username + URLContainer.UserToken + token, gid, key,
                 (r) => { SuccessComplete(r, onComplete, new object[] { username, token }); });
         }
+        /// <summary>
+        /// Closes a open session
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method that will "run" when the request is complete</param>
+        /// <param name="username">The user's username</param>
+        /// <param name="token">The user's token</param>
+        public static void CloseSession(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token)
+        {
+            // Close Session
+            GetRequest(URLContainer.CloseSession + URLContainer.Username + username + URLContainer.UserToken + token, clientData.GameID, clientData.GameKey,
+                (r) => { SuccessComplete(r, onComplete, new object[] { username, token }); });
+        }
 
 
         //  +---------+--------------+---------+
         //  |---------| TROPHY(-IES) |---------|
         //  +---------+--------------+---------+
+
         private static void FetchTrophiesComplete(IAsyncResult result, EventHandler<DataArgs> onComplete, object[] parameters)
         {
             if (result.IsCompleted)
@@ -551,6 +695,20 @@ namespace GameJoltAPI
             GetRequest(URLContainer.FetchTrophy + URLContainer.Username + username + URLContainer.UserToken + token, gid, key,
                 (r) => { FetchTrophiesComplete(r, onComplete, new object[] { username, token }); });
         }
+        /// <summary>
+        /// Fetch all trophies from a game
+        /// (The user is irrelevant as long as it's authentic)
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method that will "run" when the request is complete</param>
+        /// <param name="username">The user's username</param>
+        /// <param name="token">The user's token</param>
+        public static void FetchAllTrophies(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token)
+        {
+            // Fetch all Trophies
+            GetRequest(URLContainer.FetchTrophy + URLContainer.Username + username + URLContainer.UserToken + token, clientData.GameID, clientData.GameKey,
+                (r) => { FetchTrophiesComplete(r, onComplete, new object[] { username, token }); });
+        }
 
         /// <summary>
         /// Fetch all trophies from a game that the user have either achieved or not achieved
@@ -565,6 +723,20 @@ namespace GameJoltAPI
         {
             // Fetch all "achieved" / "not achieved" Trophies
             GetRequest(URLContainer.FetchTrophy + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Achieved + achieved, gid, key,
+                (r) => { FetchTrophiesComplete(r, onComplete, new object[] { username, token, achieved }); });
+        }
+        /// <summary>
+        /// Fetch all trophies from a game that the user have either achieved or not achieved
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method that will "run" when the request is complete</param>
+        /// <param name="username">The user's username</param>
+        /// <param name="token">The user's token</param>
+        /// <param name="achieved">If you want to fetch either the "achieved" or "not achieved" trophies (achieved = "true", not achieved = "false")</param>
+        public static void FetchAllAchievedTrophies(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, string achieved)
+        {
+            // Fetch all "achieved" / "not achieved" Trophies
+            GetRequest(URLContainer.FetchTrophy + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Achieved + achieved, clientData.GameID, clientData.GameKey,
                 (r) => { FetchTrophiesComplete(r, onComplete, new object[] { username, token, achieved }); });
         }
 
@@ -582,6 +754,21 @@ namespace GameJoltAPI
         {
             // Fetch trophy
             GetRequest(URLContainer.FetchTrophy + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.TrophyID + id, gid, key,
+                (r) => { FetchTrophyComplete(r, onComplete, new object[] { username, token, id }); });
+        }
+        /// <summary>
+        /// Fetch all trophies from a game
+        /// (The user is irrelevant as long as it's authentic)
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method that will "run" when the request is complete</param>
+        /// <param name="username">The user's username</param>
+        /// <param name="token">The user's token</param>
+        /// <param name="id">The trophy's id</param>
+        public static void FetchTrophy(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, string id)
+        {
+            // Fetch trophy
+            GetRequest(URLContainer.FetchTrophy + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.TrophyID + id, clientData.GameID, clientData.GameKey,
                 (r) => { FetchTrophyComplete(r, onComplete, new object[] { username, token, id }); });
         }
 
@@ -615,6 +802,35 @@ namespace GameJoltAPI
             GetRequest(url.ToString(), gid, key,
                 (r) => { FetchTrophiesComplete(r, onComplete, new object[] { username, token, id }); });
         }
+        /// <summary>
+        /// Fetch all trophies from a game
+        /// (The user is irrelevant as long as it's authentic)
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method that will "run" when the request is complete</param>
+        /// <param name="username">The user's username</param>
+        /// <param name="token">The user's token</param>
+        /// <param name="id">The trophies ids</param>
+        public static void FetchTrophies(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, params string[] id)
+        {
+            // URL with parameter
+            StringBuilder url = new StringBuilder(URLContainer.FetchTrophy + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.TrophyID);
+
+            // Adds all the trophy-ids to the url
+            int length = id.Length;
+            for (int i = 0; i < length; i++)
+            {
+                url.Append(id[i]);
+                url.Append(',');
+            }
+
+            // Removes the last ',' (Because it's not supposed to be there)
+            url.Remove(url.Length - 2, 1);
+
+            // Fetch all "achieved" / "not achieved" Trophies
+            GetRequest(url.ToString(), clientData.GameID, clientData.GameKey,
+                (r) => { FetchTrophiesComplete(r, onComplete, new object[] { username, token, id }); });
+        }
 
         /// <summary>
         /// Fetch all trophies from a game that the user have either achieved or not achieved
@@ -646,6 +862,35 @@ namespace GameJoltAPI
             GetRequest(url.ToString(), gid, key,
                 (r) => { FetchTrophiesComplete(r, onComplete, new object[] { username, token, achieved, id }); });
         }
+        /// <summary>
+        /// Fetch all trophies from a game that the user have either achieved or not achieved
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method that will "run" when the request is complete</param>
+        /// <param name="username">The user's username</param>
+        /// <param name="token">The user's token</param>
+        /// <param name="achieved">If you want to fetch either a "achieved" or "not achieved" trophy (achieved = "true", not achieved = "false")</param>
+        /// <param name="id">The trophies ids</param>
+        public static void FetchAchievedTrophies(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, string achieved, params string[] id)
+        {
+            // URL with parameter
+            StringBuilder url = new StringBuilder(URLContainer.FetchTrophy + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Achieved + achieved + URLContainer.TrophyID);
+
+            // Adds all the trophy-ids to the url
+            int length = id.Length;
+            for (int i = 0; i < length; i++)
+            {
+                url.Append(id[i]);
+                url.Append(',');
+            }
+
+            // Removes the last ',' (Because it's not supposed to be there)
+            url.Remove(url.Length - 2, 1);
+
+            // Fetch all "achieved" / "not achieved" Trophies
+            GetRequest(url.ToString(), clientData.GameID, clientData.GameKey,
+                (r) => { FetchTrophiesComplete(r, onComplete, new object[] { username, token, achieved, id }); });
+        }
 
         /// <summary>
         /// Achieves a trophy for the user
@@ -663,6 +908,22 @@ namespace GameJoltAPI
             GetRequest(URLContainer.AchieveTrophy + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.TrophyID + id, gid, key,
                        (r) => { SuccessComplete(r, onComplete, new object[] { username, token, id }); });
         }
+        /// <summary>
+        /// Achieves a trophy for the user
+        /// </summary>
+        /// <param name="clientData">The games client data (id and key)</param>
+        /// <param name="onComplete">Method that will "run" when the request is complete</param>
+        /// <param name="username">The user's username</param>
+        /// <param name="token">The user's token</param>
+        /// <param name="achieved">If you want to fetch either a "achieved" or "not achieved" trophy (achieved = "true", not achieved = "false")</param>
+        /// <param name="id">The trophy's id</param>
+        public static void AchieveTrophy(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, string id)
+        {
+            // Fetch trophy
+            GetRequest(URLContainer.AchieveTrophy + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.TrophyID + id, clientData.GameID, clientData.GameKey,
+                       (r) => { SuccessComplete(r, onComplete, new object[] { username, token, id }); });
+        }
+
 
         //  +-----------+----------+-----------+
         //  |-----------| SCORE(S) |-----------|
@@ -742,14 +1003,29 @@ namespace GameJoltAPI
             GetRequest(URLContainer.FetchScore, gid, key,
                 (r) => { FetchScoresComplete(r, onComplete, new object[] { }); });
         }
+        public static void FetchScores(ClientData clientData, EventHandler<DataArgs> onComplete)
+        {
+            GetRequest(URLContainer.FetchScore, clientData.GameID, clientData.GameKey,
+                (r) => { FetchScoresComplete(r, onComplete, new object[] { }); });
+        }
         public static void FetchScores(string gid, string key, EventHandler<DataArgs> onComplete, string table)
         {
             GetRequest(URLContainer.FetchScore + URLContainer.TableID + table, gid, key,
                 (r) => { FetchScoresComplete(r, onComplete, new object[] { table }); });
         }
+        public static void FetchScores(ClientData clientData, EventHandler<DataArgs> onComplete, string table)
+        {
+            GetRequest(URLContainer.FetchScore + URLContainer.TableID + table, clientData.GameID, clientData.GameKey,
+                (r) => { FetchScoresComplete(r, onComplete, new object[] { table }); });
+        }
         public static void FetchScores(string gid, string key, EventHandler<DataArgs> onComplete, string table, string limit)
         {
             GetRequest(URLContainer.FetchScore + URLContainer.TableID + table + URLContainer.Limit + limit, gid, key,
+                (r) => { FetchScoresComplete(r, onComplete, new object[] { table, limit }); });
+        }
+        public static void FetchScores(ClientData clientData, EventHandler<DataArgs> onComplete, string table, string limit)
+        {
+            GetRequest(URLContainer.FetchScore + URLContainer.TableID + table + URLContainer.Limit + limit, clientData.GameID, clientData.GameKey,
                 (r) => { FetchScoresComplete(r, onComplete, new object[] { table, limit }); });
         }
 
@@ -758,14 +1034,29 @@ namespace GameJoltAPI
             GetRequest(URLContainer.FetchScore + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.TableID, gid, key,
                 (r) => { FetchScoresComplete(r, onComplete, new object[] { username, token }); });
         }
+        public static void FetchUserScores(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token)
+        {
+            GetRequest(URLContainer.FetchScore + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.TableID, clientData.GameID, clientData.GameKey,
+                (r) => { FetchScoresComplete(r, onComplete, new object[] { username, token }); });
+        }
         public static void FetchUserScores(string gid, string key, EventHandler<DataArgs> onComplete, string username, string token, string table)
         {
             GetRequest(URLContainer.FetchScore + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.TableID + table, gid, key,
                 (r) => { FetchScoresComplete(r, onComplete, new object[] { username, token, table }); });
         }
+        public static void FetchUserScores(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, string table)
+        {
+            GetRequest(URLContainer.FetchScore + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.TableID + table, clientData.GameID, clientData.GameKey,
+                (r) => { FetchScoresComplete(r, onComplete, new object[] { username, token, table }); });
+        }
         public static void FetchUserScores(string gid, string key, EventHandler<DataArgs> onComplete, string username, string token, string table, string limit)
         {
             GetRequest(URLContainer.FetchScore + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.TableID + table + URLContainer.Limit + limit, gid, key,
+                (r) => { FetchScoresComplete(r, onComplete, new object[] { username, token, table, limit }); });
+        }
+        public static void FetchUserScores(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, string table, string limit)
+        {
+            GetRequest(URLContainer.FetchScore + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.TableID + table + URLContainer.Limit + limit, clientData.GameID, clientData.GameKey,
                 (r) => { FetchScoresComplete(r, onComplete, new object[] { username, token, table, limit }); });
         }
 
@@ -774,14 +1065,29 @@ namespace GameJoltAPI
             GetRequest(URLContainer.AddScore + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Score + score + URLContainer.Sort + sort, gid, key,
                 (r) => { SuccessComplete(r, onComplete, new object[] { username, token, score, sort }); });
         }
+        public static void AddScore(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, string score, string sort)
+        {
+            GetRequest(URLContainer.AddScore + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Score + score + URLContainer.Sort + sort, clientData.GameID, clientData.GameKey,
+                (r) => { SuccessComplete(r, onComplete, new object[] { username, token, score, sort }); });
+        }
         public static void AddScore(string gid, string key, EventHandler<DataArgs> onComplete, string username, string token, string score, string sort, string extra)
         {
             GetRequest(URLContainer.AddScore + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Score + score + URLContainer.Sort + sort + URLContainer.ExtraData + extra, gid, key,
                 (r) => { SuccessComplete(r, onComplete, new object[] { username, token, score, sort, extra }); });
         }
+        public static void AddScore(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, string score, string sort, string extra)
+        {
+            GetRequest(URLContainer.AddScore + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Score + score + URLContainer.Sort + sort + URLContainer.ExtraData + extra, clientData.GameID, clientData.GameKey,
+                (r) => { SuccessComplete(r, onComplete, new object[] { username, token, score, sort, extra }); });
+        }
         public static void AddScore(string gid, string key, EventHandler<DataArgs> onComplete, string username, string token, string score, string sort, string extra, string table)
         {
             GetRequest(URLContainer.AddScore + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Score + score + URLContainer.Sort + sort + URLContainer.ExtraData + extra + URLContainer.TableID + table, gid, key,
+                (r) => { SuccessComplete(r, onComplete, new object[] { username, token, score, sort, extra, table }); });
+        }
+        public static void AddScore(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, string score, string sort, string extra, string table)
+        {
+            GetRequest(URLContainer.AddScore + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Score + score + URLContainer.Sort + sort + URLContainer.ExtraData + extra + URLContainer.TableID + table, clientData.GameID, clientData.GameKey,
                 (r) => { SuccessComplete(r, onComplete, new object[] { username, token, score, sort, extra, table }); });
         }
 
@@ -790,14 +1096,29 @@ namespace GameJoltAPI
             GetRequest(URLContainer.AddScore + URLContainer.Sort + sort, gid, key,
                 (r) => { SuccessComplete(r, onComplete, new object[] { name, score, sort }); });
         }
+        public static void AddScoreAsGuest(ClientData clientData, EventHandler<DataArgs> onComplete, string name, string score, string sort)
+        {
+            GetRequest(URLContainer.AddScore + URLContainer.Sort + sort, clientData.GameID, clientData.GameKey,
+                (r) => { SuccessComplete(r, onComplete, new object[] { name, score, sort }); });
+        }
         public static void AddScoreAsGuest(string gid, string key, EventHandler<DataArgs> onComplete, string name, string score, string sort, string extra)
         {
             GetRequest(URLContainer.AddScore + URLContainer.Sort + sort + URLContainer.ExtraData + extra, gid, key,
                 (r) => { SuccessComplete(r, onComplete, new object[] { name, score, sort, extra }); });
         }
+        public static void AddScoreAsGuest(ClientData clientData, EventHandler<DataArgs> onComplete, string name, string score, string sort, string extra)
+        {
+            GetRequest(URLContainer.AddScore + URLContainer.Sort + sort + URLContainer.ExtraData + extra, clientData.GameID, clientData.GameKey,
+                (r) => { SuccessComplete(r, onComplete, new object[] { name, score, sort, extra }); });
+        }
         public static void AddScoreAsGuest(string gid, string key, EventHandler<DataArgs> onComplete, string name, string score, string sort, string extra, string table)
         {
             GetRequest(URLContainer.AddScore + URLContainer.Sort + sort + URLContainer.ExtraData + extra + URLContainer.TableID + table, gid, key,
+                (r) => { SuccessComplete(r, onComplete, new object[] { name, score, sort, extra, table }); });
+        }
+        public static void AddScoreAsGuest(ClientData clientData, EventHandler<DataArgs> onComplete, string name, string score, string sort, string extra, string table)
+        {
+            GetRequest(URLContainer.AddScore + URLContainer.Sort + sort + URLContainer.ExtraData + extra + URLContainer.TableID + table, clientData.GameID, clientData.GameKey,
                 (r) => { SuccessComplete(r, onComplete, new object[] { name, score, sort, extra, table }); });
         }
 
@@ -806,12 +1127,18 @@ namespace GameJoltAPI
             GetRequest(URLContainer.FetchScoreTable, gid, key,
                 (r) => { FetchScoreTablesComplete(r, onComplete, new object[] { }); });
         }
+        public static void FetchScoreTables(ClientData clientData, EventHandler<DataArgs> onComplete)
+        {
+            GetRequest(URLContainer.FetchScoreTable, clientData.GameID, clientData.GameKey,
+                (r) => { FetchScoreTablesComplete(r, onComplete, new object[] { }); });
+        }
 
         //  +----------+------------+----------+
         //  |----------| DATA STORE |----------|
         //  +----------+------------+----------+
 
         // Fetch (RawData)
+
         private static void FetchDataComplete(IAsyncResult result, EventHandler<DataArgs> onComplete, object[] parameters) // TODO RENAME THIS FKIN TANG
         {
             if (result.IsCompleted)
@@ -865,10 +1192,20 @@ namespace GameJoltAPI
             GetRequest(URLContainer.FetchData + URLContainer.Key + dataKey, gid, key,
                 (r) => { FetchDataComplete(r, onComplete, new object[] { dataKey }); });
         }
+        public static void FetchData(ClientData clientData, EventHandler<DataArgs> onComplete, string dataKey)
+        {
+            GetRequest(URLContainer.FetchData + URLContainer.Key + dataKey, clientData.GameID, clientData.GameKey,
+                (r) => { FetchDataComplete(r, onComplete, new object[] { dataKey }); });
+        }
 
         public static void FetchUserData(string gid, string key, EventHandler<DataArgs> onComplete, string username, string token, string dataKey)
         {
             GetRequest(URLContainer.FetchData + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Key + dataKey, gid, key,
+                (r) => { FetchDataComplete(r, onComplete, new object[] { username, token, dataKey }); });
+        }
+        public static void FetchUserData(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, string dataKey)
+        {
+            GetRequest(URLContainer.FetchData + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Key + dataKey, clientData.GameID, clientData.GameKey,
                 (r) => { FetchDataComplete(r, onComplete, new object[] { username, token, dataKey }); });
         }
 
@@ -878,10 +1215,20 @@ namespace GameJoltAPI
             GetRequest(URLContainer.SetData + URLContainer.Key + dataKey + URLContainer.Data + value, gid, key,
                 (r) => { SuccessComplete(r, onComplete, new object[] { dataKey, value }); });
         }
+        public static void SetData(ClientData clientData, EventHandler<DataArgs> onComplete, string dataKey, string value)
+        {
+            GetRequest(URLContainer.SetData + URLContainer.Key + dataKey + URLContainer.Data + value, clientData.GameID, clientData.GameKey,
+                (r) => { SuccessComplete(r, onComplete, new object[] { dataKey, value }); });
+        }
 
         public static void SetUserData(string gid, string key, EventHandler<DataArgs> onComplete, string username, string token, string dataKey, string value)
         {
             GetRequest(URLContainer.SetData + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Key + dataKey + URLContainer.Data + value, gid, key,
+                (r) => { SuccessComplete(r, onComplete, new object[] { username, token, dataKey, value }); });
+        }
+        public static void SetUserData(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, string dataKey, string value)
+        {
+            GetRequest(URLContainer.SetData + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Key + dataKey + URLContainer.Data + value, clientData.GameID, clientData.GameKey,
                 (r) => { SuccessComplete(r, onComplete, new object[] { username, token, dataKey, value }); });
         }
 
@@ -891,10 +1238,20 @@ namespace GameJoltAPI
             GetRequest(URLContainer.UpdateData + URLContainer.Key + dataKey + URLContainer.Operation + operation.ToString().ToLower() + URLContainer.Value + value, gid, key,
                 (r) => { FetchDataComplete(r, onComplete, new object[] { dataKey, operation, value }); });
         }
+        public static void UpdateData(ClientData clientData, EventHandler<DataArgs> onComplete, string dataKey, DataOperation operation, string value)
+        {
+            GetRequest(URLContainer.UpdateData + URLContainer.Key + dataKey + URLContainer.Operation + operation.ToString().ToLower() + URLContainer.Value + value, clientData.GameID, clientData.GameKey,
+                (r) => { FetchDataComplete(r, onComplete, new object[] { dataKey, operation, value }); });
+        }
 
         public static void UpdateUserData(string gid, string key, EventHandler<DataArgs> onComplete, string username, string token, string dataKey, DataOperation operation, string value)
         {
             GetRequest(URLContainer.UpdateData + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Key + dataKey + URLContainer.Operation + operation.ToString().ToLower() + URLContainer.Value + value, gid, key,
+                (r) => { FetchDataComplete(r, onComplete, new object[] { username, token, dataKey, operation, value }); });
+        }
+        public static void UpdateUserData(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, string dataKey, DataOperation operation, string value)
+        {
+            GetRequest(URLContainer.UpdateData + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Key + dataKey + URLContainer.Operation + operation.ToString().ToLower() + URLContainer.Value + value, clientData.GameID, clientData.GameKey,
                 (r) => { FetchDataComplete(r, onComplete, new object[] { username, token, dataKey, operation, value }); });
         }
 
@@ -904,10 +1261,20 @@ namespace GameJoltAPI
             GetRequest(URLContainer.RemoveData + URLContainer.Key + dataKey, gid, key,
                 (r) => { SuccessComplete(r, onComplete, new object[] { dataKey }); });
         }
+        public static void RemoveData(ClientData clientData, EventHandler<DataArgs> onComplete, string dataKey)
+        {
+            GetRequest(URLContainer.RemoveData + URLContainer.Key + dataKey, clientData.GameID, clientData.GameKey,
+                (r) => { SuccessComplete(r, onComplete, new object[] { dataKey }); });
+        }
 
         public static void RemoveUserData(string gid, string key, EventHandler<DataArgs> onComplete, string username, string token, string dataKey)
         {
             GetRequest(URLContainer.RemoveData + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Key + dataKey, gid, key,
+                (r) => { SuccessComplete(r, onComplete, new object[] { username, token, dataKey }); });
+        }
+        public static void RemoveUserData(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token, string dataKey)
+        {
+            GetRequest(URLContainer.RemoveData + URLContainer.Username + username + URLContainer.UserToken + token + URLContainer.Key + dataKey, clientData.GameID, clientData.GameKey,
                 (r) => { SuccessComplete(r, onComplete, new object[] { username, token, dataKey }); });
         }
 
@@ -916,9 +1283,19 @@ namespace GameJoltAPI
             GetRequest(URLContainer.GetKeysData, gid, key,
                 (r) => { FetchDataKeysComplete(r, onComplete, new object[] { }); });
         }
+        public static void FetchDataKeys(ClientData clientData, EventHandler<DataArgs> onComplete)
+        {
+            GetRequest(URLContainer.GetKeysData, clientData.GameID, clientData.GameKey,
+                (r) => { FetchDataKeysComplete(r, onComplete, new object[] { }); });
+        }
         public static void FetchUserDataKeys(string gid, string key, EventHandler<DataArgs> onComplete, string username, string token)
         {
             GetRequest(URLContainer.GetKeysData + URLContainer.Username + username + URLContainer.UserToken + token, gid, key,
+                (r) => { FetchDataKeysComplete(r, onComplete, new object[] { username, token }); });
+        }
+        public static void FetchUserDataKeys(ClientData clientData, EventHandler<DataArgs> onComplete, string username, string token)
+        {
+            GetRequest(URLContainer.GetKeysData + URLContainer.Username + username + URLContainer.UserToken + token, clientData.GameID, clientData.GameKey,
                 (r) => { FetchDataKeysComplete(r, onComplete, new object[] { username, token }); });
         }
     }
