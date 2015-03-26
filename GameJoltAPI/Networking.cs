@@ -11,10 +11,14 @@ namespace GameJoltAPI
 {
     /// <summary>
     /// Contains data about a call
-    /// (If successed & Return data & Sent parameters)
+    /// (If Connected & Successed & Return data & Sent parameters)
     /// </summary>
     public class DataArgs : EventArgs
     {
+        /// <summary>
+        /// Whether or not the call was replied
+        /// </summary>
+        public bool Connected;
         /// <summary>
         /// Whether the call was successful or not
         /// </summary>
@@ -36,20 +40,36 @@ namespace GameJoltAPI
         public DataArgs()
         {
         }
-        public DataArgs(bool success)
+        public DataArgs(bool connected)
         {
+            Connected = connected;
+        }
+        public DataArgs(bool connected, bool success)
+        {
+            Connected = connected;
             Success = success;
         }
-        public DataArgs(bool success, object data)
+        public DataArgs(bool connected, bool success, object data)
         {
+            Connected = connected;
             Success = success;
             Data = data;
         }
-        public DataArgs(bool success, object data, object[] parameters)
+        public DataArgs(bool connected, bool success, object data, object[] parameters)
         {
+            Connected = connected;
             Success = success;
             Data = data;
             Parameters = parameters;
+        }
+
+        /// <summary>
+        /// Checks if the call was replied and successful
+        /// </summary>
+        /// <returns>Whether or not the call was replied and successful</returns>
+        public bool IfSuccessful()
+        {
+            return (Connected && Success);
         }
     }
 
@@ -77,31 +97,9 @@ namespace GameJoltAPI
         internal static class URLContainer
         {
             internal static readonly string 
-                                            // User URLs
-                                            FetchUser = @"http://gamejolt.com/api/game/v1/users/?" + FormatJson,
-                                            AuthUser = @"http://gamejolt.com/api/game/v1/users/auth/?" + FormatJson,
-
-                                            // Session URLs
-                                            OpenSession = @"http://gamejolt.com/api/game/v1/sessions/open/?" + FormatJson,
-                                            PingSession = @"http://gamejolt.com/api/game/v1/sessions/ping/?" + FormatJson,
-                                            CloseSession = @"http://gamejolt.com/api/game/v1/sessions/close/?" + FormatJson,
-
-                                            // Trophy URLs
-                                            FetchTrophy = @"http://gamejolt.com/api/game/v1/trophies/?" + FormatJson,
-                                            AchieveTrophy = @"http://gamejolt.com/api/game/v1/sessions/ping/?" + FormatJson,
-                                
-                                            // Score URLs
-                                            FetchScore = @"http://gamejolt.com/api/game/v1/scores/?" + FormatJson,
-                                            AddScore = @"http://gamejolt.com/api/game/v1/scores/add/?" + FormatJson,
-                                            FetchScoreTable = @"http://gamejolt.com/api/game/v1/scores/tables/?" + FormatJson,
-
-                                            // Data-Store URLs
-                                            FetchData = @"http://gamejolt.com/api/game/v1/data-store/?" + FormatDump,
-                                            SetData = @"http://gamejolt.com/api/game/v1/data-store/set/?" + FormatJson,
-                                            UpdateData = @"http://gamejolt.com/api/game/v1/data-store/update/?" + FormatDump,
-                                            RemoveData = @"http://gamejolt.com/api/game/v1/data-store/remove/?" + FormatJson,
-                                            GetKeysData = @"http://gamejolt.com/api/game/v1/data-store/get-keys/?" + FormatJson,
-
+                                            // Root
+                                            APIRoot = @"http://gamejolt.com/api/game/v1/",
+                                            
                                             // Parameters
                                             GameID = @"&game_id=",
                                             UserID = @"&user_id=",
@@ -125,7 +123,52 @@ namespace GameJoltAPI
                                             FormatDump = @"&format=dump",
                                             FormatJson = @"&format=json",
                                             FormatKeypair = @"&format=keypair",
-                                            FormatXml = @"&format=xml";
+                                            FormatXml = @"&format=xml",
+
+                                            // User URLs
+                                            FetchUser = APIRoot + @"users/?" + FormatJson,
+                                            AuthUser = APIRoot + @"users/auth/?" + FormatJson,
+
+                                            // Session URLs
+                                            OpenSession = APIRoot + @"sessions/open/?" + FormatJson,
+                                            PingSession = APIRoot + @"sessions/ping/?" + FormatJson,
+                                            CloseSession = APIRoot + @"sessions/close/?" + FormatJson,
+
+                                            // Trophy URLs
+                                            FetchTrophy = APIRoot + @"trophies/?" + FormatJson,
+                                            AchieveTrophy = APIRoot + @"sessions/ping/?" + FormatJson,
+                                
+                                            // Score URLs
+                                            FetchScore = APIRoot + @"scores/?" + FormatJson,
+                                            AddScore = APIRoot + @"scores/add/?" + FormatJson,
+                                            FetchScoreTable = APIRoot + @"scores/tables/?" + FormatJson,
+
+                                            // Data-Store URLs
+                                            FetchData = APIRoot + @"data-store/?" + FormatDump,
+                                            SetData = APIRoot + @"data-store/set/?" + FormatJson,
+                                            UpdateData = APIRoot + @"data-store/update/?" + FormatDump,
+                                            RemoveData = APIRoot + @"data-store/remove/?" + FormatJson,
+                                            GetKeysData = APIRoot + @"hdata-store/get-keys/?" + FormatJson;
+        }
+
+        // Serializer settings
+        private static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings()
+            {
+                Error = new EventHandler<Newtonsoft.Json.Serialization.ErrorEventArgs>(HandleDeserializationError)
+            };
+
+        private static void HandleDeserializationError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs errorArgs) // Handles errors (exceptions) caused when deserializing
+        {
+#if DEBUG
+            // Types error in console
+            Console.WriteLine(string.Format("Error in \"{0}\"\n{1}",
+                                            errorArgs.ErrorContext.Error.Source,
+                                            errorArgs.ErrorContext.Error.Message));
+
+            // Break if debug mode is active
+            //if (System.Diagnostics.Debugger.IsAttached)
+                //System.Diagnostics.Debugger.Break();
+#endif
         }
 
         /// <summary>
@@ -168,10 +211,23 @@ namespace GameJoltAPI
         {
             // Gets the request from the result
             HttpWebRequest request = (HttpWebRequest)result.AsyncState;
-            string data;
+
+            // Safely handles the response (connection problems only)
+            WebResponse response;
+            try { response = request.EndGetResponse(result); }
+            catch (Exception e)
+            {
+                // Return null if the call failed due to connection problems
+                if (e.GetType() == typeof(WebException))
+                    return null;
+
+                // Throw exception
+                throw e;
+            }
 
             // Reads the data from the stream
-            using (StreamReader sr = new StreamReader(request.EndGetResponse(result).GetResponseStream()))
+            string data = "";
+            using (StreamReader sr = new StreamReader(response.GetResponseStream()))
             {
                 data = sr.ReadToEnd();
                 sr.Close();
@@ -183,7 +239,7 @@ namespace GameJoltAPI
         private static T DeserializeResult<T>(string data) // Reads the result and returns a class containing the data (JSON) 
         {
             // Deserialize and return data
-            return JsonConvert.DeserializeObject<T>(data);
+            return JsonConvert.DeserializeObject<T>(data, SerializerSettings);
         }
         private static bool DeserializeDataResult(IAsyncResult result, out string outData) // Reads the result and returns the raw data (dump format) 
         {
@@ -218,15 +274,26 @@ namespace GameJoltAPI
                 if (onComplete == null)
                     return;
 
-                // Deserialize
+                // Read result
                 string resultData = ReadResult(result);
+                if (resultData == null) // If there is no result
+                {
+                    // Call
+                    if (onComplete != null)
+                        onComplete(null, new DataArgs(false, false, null, parameters));
+
+                    // Abort
+                    return;
+                }
+
+                // Deserialize
                 JsonObjects.SuccessResponse successResponse = DeserializeResult<JsonObjects.SuccessResult>(resultData).Response;
 
                 // 
                 bool success = successResponse.Success[0] == 't';
 
                 // Call
-                onComplete(null, new DataArgs(success, null, parameters));
+                onComplete(null, new DataArgs(true, success, null, parameters));
             }
         }
 
@@ -234,12 +301,24 @@ namespace GameJoltAPI
         //  +-----------+---------+-----------+
         //  |-----------| USER(S) |-----------|
         //  +-----------+---------+-----------+
+
         private static void FetchUserComplete(IAsyncResult result, EventHandler<DataArgs> onComplete, object[] parameters)
         {
             if (result.IsCompleted)
             {
-                // Deserialize
+                // Read result
                 string resultData = ReadResult(result);
+                if (resultData == null) // If there is no result
+                {
+                    // Call
+                    if (onComplete != null)
+                        onComplete(null, new DataArgs(false, false, null, parameters));
+                    
+                    // Abort
+                    return;
+                }
+
+                // Deserialize
                 JsonObjects.UserResult userResult = DeserializeResult<JsonObjects.UserResult>(resultData);
 
                 if (userResult.Response.Success[0] == 't')
@@ -252,7 +331,7 @@ namespace GameJoltAPI
 
                     // Call
                     if (onComplete != null)
-                        onComplete(null, new DataArgs(true, userData, parameters));
+                        onComplete(null, new DataArgs(true, true, userData, parameters));
                 }
                 else
                 {
@@ -261,7 +340,7 @@ namespace GameJoltAPI
 
                     // Call
                     if (onComplete != null)
-                        onComplete(null, new DataArgs(false, success.Message, parameters));
+                        onComplete(null, new DataArgs(true, false, success.Message, parameters));
                 }
             }
         }
@@ -269,8 +348,19 @@ namespace GameJoltAPI
         {
             if (result.IsCompleted)
             {
-                // Deserialize
+                // Read result
                 string resultData = ReadResult(result);
+                if (resultData == null) // If there is no result
+                {
+                    // Call
+                    if (onComplete != null)
+                        onComplete(null, new DataArgs(false, false, null, parameters));
+
+                    // Abort
+                    return;
+                }
+
+                // Deserialize
                 JsonObjects.UserResult userResult = DeserializeResult<JsonObjects.UserResult>(resultData);
 
                 if (userResult.Response.Success[0] == 't')
@@ -286,7 +376,7 @@ namespace GameJoltAPI
 
                     // Call
                     if (onComplete != null)
-                        onComplete(null, new DataArgs(true, users, parameters));
+                        onComplete(null, new DataArgs(true, true, users, parameters));
                 }
                 else
                 {
@@ -295,7 +385,7 @@ namespace GameJoltAPI
 
                     // Call
                     if (onComplete != null)
-                        onComplete(null, new DataArgs(false, success.Message, parameters));
+                        onComplete(null, new DataArgs(true, false, success.Message, parameters));
                 }
             }
         }
@@ -618,8 +708,19 @@ namespace GameJoltAPI
         {
             if (result.IsCompleted)
             {
-                // Deserialize
+                // Read result
                 string resultData = ReadResult(result);
+                if (resultData == null) // If there is no result
+                {
+                    // Call
+                    if (onComplete != null)
+                        onComplete(null, new DataArgs(false, false, null, parameters));
+
+                    // Abort
+                    return;
+                }
+
+                // Deserialize
                 JsonObjects.TrophyResponse trophyResponse = DeserializeResult<JsonObjects.TrophyResult>(resultData).Response;
 
                 if (trophyResponse.Success[0] == 't')
@@ -635,7 +736,7 @@ namespace GameJoltAPI
 
                     // Call
                     if (onComplete != null)
-                        onComplete(null, new DataArgs(true, newTrophies, parameters));
+                        onComplete(null, new DataArgs(true, true, newTrophies, parameters));
                 }
                 else
                 {
@@ -644,7 +745,7 @@ namespace GameJoltAPI
 
                     // Call
                     if (onComplete != null)
-                        onComplete(null, new DataArgs(false, successResponse.Message, parameters));
+                        onComplete(null, new DataArgs(true, false, successResponse.Message, parameters));
                 }
             }
         }
@@ -652,8 +753,19 @@ namespace GameJoltAPI
         {
             if (result.IsCompleted)
             {
-                // Deserialize
+                // Read result
                 string resultData = ReadResult(result);
+                if (resultData == null) // If there is no result
+                {
+                    // Call
+                    if (onComplete != null)
+                        onComplete(null, new DataArgs(false, false, null, parameters));
+
+                    // Abort
+                    return;
+                }
+
+                // Deserialize
                 JsonObjects.TrophyResponse trophyResponse = DeserializeResult<JsonObjects.TrophyResult>(resultData).Response;
 
                 if (trophyResponse.Success[0] == 't')
@@ -666,7 +778,7 @@ namespace GameJoltAPI
 
                     // Call
                     if (onComplete != null)
-                        onComplete(null, new DataArgs(true, trophy, parameters));
+                        onComplete(null, new DataArgs(true, true, trophy, parameters));
                 }
                 else
                 {
@@ -675,7 +787,7 @@ namespace GameJoltAPI
 
                     // Call
                     if (onComplete != null)
-                        onComplete(null, new DataArgs(false, successResponse.Message, parameters));
+                        onComplete(null, new DataArgs(true, false, successResponse.Message, parameters));
                 }
             }
         }
@@ -933,8 +1045,19 @@ namespace GameJoltAPI
         {
             if (result.IsCompleted)
             {
-                // Deserialize
+                // Read result
                 string resultData = ReadResult(result);
+                if (resultData == null) // If there is no result
+                {
+                    // Call
+                    if (onComplete != null)
+                        onComplete(null, new DataArgs(false, false, null, parameters));
+
+                    // Abort
+                    return;
+                }
+
+                // Deserialize
                 JsonObjects.ScoreResponse scoreResponse = DeserializeResult<JsonObjects.ScoreResult>(resultData).Response;
 
                 if (scoreResponse.Success[0] == 't')
@@ -950,7 +1073,7 @@ namespace GameJoltAPI
 
                     // Call
                     if (onComplete != null)
-                        onComplete(null, new DataArgs(true, scores, parameters));
+                        onComplete(null, new DataArgs(true, true, scores, parameters));
                 }
                 else
                 {
@@ -959,7 +1082,7 @@ namespace GameJoltAPI
 
                     // Call
                     if (onComplete != null)
-                        onComplete(null, new DataArgs(false, successResponse.Message, parameters));
+                        onComplete(null, new DataArgs(true, false, successResponse.Message, parameters));
                 }
             }
         }
@@ -967,8 +1090,19 @@ namespace GameJoltAPI
         {
             if (result.IsCompleted)
             {
-                // Deserialize
+                // Read result
                 string resultData = ReadResult(result);
+                if (resultData == null) // If there is no result
+                {
+                    // Call
+                    if (onComplete != null)
+                        onComplete(null, new DataArgs(false, false, null, parameters));
+
+                    // Abort
+                    return;
+                }
+
+                // Deserialize
                 JsonObjects.ScoreTableResponse tableResponse = DeserializeResult<JsonObjects.ScoreTableResult>(resultData).Response;
 
                 if (tableResponse.Success[0] == 't')
@@ -984,7 +1118,7 @@ namespace GameJoltAPI
 
                     // Call
                     if (onComplete != null)
-                        onComplete(null, new DataArgs(true, tables, parameters));
+                        onComplete(null, new DataArgs(true, true, tables, parameters));
                 }
                 else
                 {
@@ -993,7 +1127,7 @@ namespace GameJoltAPI
 
                     // Call
                     if (onComplete != null)
-                        onComplete(null, new DataArgs(false, successResponse.Message, parameters));
+                        onComplete(null, new DataArgs(true, false, successResponse.Message, parameters));
                 }
             }
         }
@@ -1133,31 +1267,54 @@ namespace GameJoltAPI
                 (r) => { FetchScoreTablesComplete(r, onComplete, new object[] { }); });
         }
 
+
         //  +----------+------------+----------+
         //  |----------| DATA STORE |----------|
         //  +----------+------------+----------+
 
         // Fetch (RawData)
-
         private static void FetchDataComplete(IAsyncResult result, EventHandler<DataArgs> onComplete, object[] parameters) // TODO RENAME THIS FKIN TANG
         {
             if (result.IsCompleted)
             {
+                // Read result
+                string resultData = ReadResult(result);
+                if (resultData == null) // If there is no result
+                {
+                    // Call
+                    if (onComplete != null)
+                        onComplete(null, new DataArgs(false, false, null, parameters));
+
+                    // Abort
+                    return;
+                }
+
                 // Deserialize
                 string data;
                 bool success = DeserializeDataResult(result, out data);
 
                 // Call
                 if (onComplete != null)
-                    onComplete(null, new DataArgs(success, data, parameters));
+                    onComplete(null, new DataArgs(true, success, data, parameters));
             }
         }
         private static void FetchDataKeysComplete(IAsyncResult result, EventHandler<DataArgs> onComplete, object[] parameters)
         {
             if (result.IsCompleted)
             {
-                // Deserialize
+                // Read result
                 string resultData = ReadResult(result);
+                if (resultData == null) // If there is no result
+                {
+                    // Call
+                    if (onComplete != null)
+                        onComplete(null, new DataArgs(false, false, null, parameters));
+
+                    // Abort
+                    return;
+                }
+
+                // Deserialize
                 JsonObjects.DataKeysResponse keysResponse = DeserializeResult<JsonObjects.DataKeysResult>(resultData).Response;
 
                 if (keysResponse.Success[0] == 't')
@@ -1173,7 +1330,7 @@ namespace GameJoltAPI
 
                     // Call
                     if (onComplete != null)
-                        onComplete(null, new DataArgs(true, keys, parameters));
+                        onComplete(null, new DataArgs(true, true, keys, parameters));
                 }
                 else
                 {
@@ -1182,7 +1339,7 @@ namespace GameJoltAPI
 
                     // Call
                     if (onComplete != null)
-                        onComplete(null, new DataArgs(false, successResponse.Message, parameters));
+                        onComplete(null, new DataArgs(true, false, successResponse.Message, parameters));
                 }
             }
         }

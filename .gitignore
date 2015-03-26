@@ -4,6 +4,7 @@
 *.sln.docstates
 *.FileListAbsolute.txt
 *.vshost.exe
+*.vshost.exe.manifest
 
 # Windows image file caches
 Thumbs.db

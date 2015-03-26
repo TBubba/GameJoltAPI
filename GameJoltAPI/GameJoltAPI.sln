@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameJoltAPI", "GameJoltAPI.csproj", "{2D9DBBED-442F-4CDA-97AA-B4285E62C4CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "..\Example\Example.csproj", "{C685A116-67A3-4071-A56C-0AEDFC8D192A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "..\Examples\Examples.csproj", "{2B843C5B-AD7C-40C8-A4B1-C660CB375576}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,16 +25,17 @@ Global
 		{2D9DBBED-442F-4CDA-97AA-B4285E62C4CB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2D9DBBED-442F-4CDA-97AA-B4285E62C4CB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2D9DBBED-442F-4CDA-97AA-B4285E62C4CB}.Release|x86.ActiveCfg = Release|Any CPU
-		{C685A116-67A3-4071-A56C-0AEDFC8D192A}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{C685A116-67A3-4071-A56C-0AEDFC8D192A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{C685A116-67A3-4071-A56C-0AEDFC8D192A}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{C685A116-67A3-4071-A56C-0AEDFC8D192A}.Debug|x86.ActiveCfg = Debug|x86
-		{C685A116-67A3-4071-A56C-0AEDFC8D192A}.Debug|x86.Build.0 = Debug|x86
-		{C685A116-67A3-4071-A56C-0AEDFC8D192A}.Release|Any CPU.ActiveCfg = Release|x86
-		{C685A116-67A3-4071-A56C-0AEDFC8D192A}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{C685A116-67A3-4071-A56C-0AEDFC8D192A}.Release|Mixed Platforms.Build.0 = Release|x86
-		{C685A116-67A3-4071-A56C-0AEDFC8D192A}.Release|x86.ActiveCfg = Release|x86
-		{C685A116-67A3-4071-A56C-0AEDFC8D192A}.Release|x86.Build.0 = Release|x86
+		{2B843C5B-AD7C-40C8-A4B1-C660CB375576}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{2B843C5B-AD7C-40C8-A4B1-C660CB375576}.Debug|Any CPU.Build.0 = Debug|x86
+		{2B843C5B-AD7C-40C8-A4B1-C660CB375576}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{2B843C5B-AD7C-40C8-A4B1-C660CB375576}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{2B843C5B-AD7C-40C8-A4B1-C660CB375576}.Debug|x86.ActiveCfg = Debug|x86
+		{2B843C5B-AD7C-40C8-A4B1-C660CB375576}.Debug|x86.Build.0 = Debug|x86
+		{2B843C5B-AD7C-40C8-A4B1-C660CB375576}.Release|Any CPU.ActiveCfg = Release|x86
+		{2B843C5B-AD7C-40C8-A4B1-C660CB375576}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{2B843C5B-AD7C-40C8-A4B1-C660CB375576}.Release|Mixed Platforms.Build.0 = Release|x86
+		{2B843C5B-AD7C-40C8-A4B1-C660CB375576}.Release|x86.ActiveCfg = Release|x86
+		{2B843C5B-AD7C-40C8-A4B1-C660CB375576}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
